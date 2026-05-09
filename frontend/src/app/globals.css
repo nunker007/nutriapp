@@ -1,0 +1,336 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --green:      #4CAF50;
+  --green-light:#E8F5E9;
+  --orange:     #FF9800;
+  --red:        #F44336;
+  --blue:       #2196F3;
+  --purple:     #9C27B0;
+  --bg:         #F5F5F5;
+  --surface:    #FFFFFF;
+  --text:       #212121;
+  --text-sub:   #757575;
+  --border:     #E0E0E0;
+  --radius:     12px;
+  --radius-sm:  8px;
+  --shadow:     0 2px 8px rgba(0,0,0,0.08);
+  --shadow-md:  0 4px 16px rgba(0,0,0,0.12);
+}
+
+body {
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo',
+               'Noto Sans KR', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── 공통 카드 ── */
+.card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 1.25rem;
+}
+
+/* ── BigTouchButton ── */
+.big-touch-btn {
+  display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+  width: 100%; padding: 0.9rem 1.5rem;
+  border: none; border-radius: var(--radius); cursor: pointer;
+  font-size: 1rem; font-weight: 600; transition: all 0.18s ease;
+}
+.big-touch-btn--primary  { background: var(--green);  color: #fff; }
+.big-touch-btn--primary:hover  { filter: brightness(1.08); }
+.big-touch-btn--secondary { background: var(--green-light); color: var(--green); }
+.big-touch-btn--secondary:hover { filter: brightness(0.96); }
+.big-touch-btn--ghost { background: transparent; color: var(--text-sub); border: 1.5px solid var(--border); }
+.big-touch-btn--ghost:hover { background: var(--border); }
+.big-touch-btn--small { padding: 0.5rem 1rem; font-size: 0.875rem; }
+.big-touch-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+
+/* ── LoadingSpinner ── */
+.loading-spinner { display: flex; justify-content: center; padding: 2rem; }
+.spinner-circle {
+  width: 40px; height: 40px;
+  border: 4px solid var(--border);
+  border-top-color: var(--green);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── 온보딩 ── */
+.onboarding-page {
+  min-height: 100vh; display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 1.5rem; background: var(--surface);
+}
+.onboarding-flow { width: 100%; max-width: 420px; }
+
+.character-section { text-align: center; margin-bottom: 1.5rem; }
+.character-emoji { font-size: 3.5rem; display: block; margin-bottom: 0.5rem; }
+
+.speech-bubble {
+  background: var(--green-light); border-radius: var(--radius);
+  padding: 0.875rem 1.25rem; margin-bottom: 1.5rem;
+  font-size: 0.95rem; line-height: 1.6; color: #2e7d32;
+  white-space: pre-line; opacity: 0; transition: opacity 0.3s;
+}
+.speech-bubble--visible { opacity: 1; }
+
+.onboarding-progress { margin-bottom: 1.5rem; }
+.progress-track {
+  height: 6px; background: var(--border); border-radius: 99px; overflow: hidden;
+  margin-bottom: 0.75rem;
+}
+.progress-fill { height: 100%; background: var(--green); border-radius: 99px; transition: width 0.4s ease; }
+.progress-steps { display: flex; gap: 0.5rem; list-style: none; }
+.progress-step {
+  flex: 1; text-align: center; font-size: 0.7rem; color: var(--text-sub);
+  padding: 0.25rem; border-radius: var(--radius-sm);
+}
+.progress-step--active { color: var(--green); font-weight: 700; }
+.progress-step--done { color: var(--green); opacity: 0.6; }
+
+.onboarding-step h2 { font-size: 1.2rem; font-weight: 700; margin-bottom: 1rem; }
+.step-hint { font-size: 0.875rem; color: var(--text-sub); margin-bottom: 0.75rem; }
+
+.goal-options, .dietary-options, .allergen-options { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+.goal-option, .dietary-option, .allergen-option {
+  display: flex; align-items: center; gap: 0.75rem;
+  width: 100%; padding: 0.8rem 1rem;
+  border: 2px solid var(--border); border-radius: var(--radius-sm);
+  background: var(--surface); cursor: pointer; font-size: 0.95rem;
+  transition: all 0.15s;
+}
+.goal-option--selected, .dietary-option--selected, .allergen-option--selected {
+  border-color: var(--green); background: var(--green-light); color: var(--green); font-weight: 600;
+}
+
+.profile-fields { display: flex; flex-direction: column; gap: 0.875rem; }
+.profile-fields label { display: flex; flex-direction: column; gap: 0.3rem; font-size: 0.875rem; font-weight: 600; }
+.profile-fields input, .profile-fields select {
+  padding: 0.7rem 0.875rem; border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm); font-size: 1rem;
+  outline: none; transition: border-color 0.15s;
+}
+.profile-fields input:focus, .profile-fields select:focus { border-color: var(--green); }
+
+.navigation-buttons { display: flex; gap: 0.75rem; margin-top: 1.5rem; }
+.navigation-buttons .big-touch-btn { flex: 1; }
+
+.guest-mode-link {
+  display: block; text-align: right; margin-bottom: 1rem;
+  background: none; border: none; cursor: pointer;
+  color: var(--text-sub); font-size: 0.875rem; text-decoration: underline;
+}
+
+/* ── 대시보드 레이아웃 ── */
+.dashboard-page {
+  max-width: 480px; margin: 0 auto;
+  padding: 0 1rem 6rem;
+  min-height: 100vh; background: var(--bg);
+}
+.dashboard-header {
+  position: sticky; top: 0; z-index: 10;
+  background: var(--surface); border-bottom: 1px solid var(--border);
+  padding: 0.875rem 1rem;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.dashboard-header h1 { font-size: 1.1rem; font-weight: 700; }
+.header-actions { display: flex; gap: 0.5rem; align-items: center; }
+
+.dashboard-section { margin-top: 1rem; }
+.section-title { font-size: 0.875rem; font-weight: 700; color: var(--text-sub);
+  text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.6rem; }
+
+/* ── 칼로리 요약 ── */
+.daily-calorie-summary {
+  background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow);
+  padding: 1.25rem; display: flex; gap: 0; overflow: hidden;
+}
+.calorie-item { flex: 1; text-align: center; padding: 0 0.5rem; }
+.calorie-item + .calorie-item { border-left: 1px solid var(--border); }
+.calorie-label { display: block; font-size: 0.75rem; color: var(--text-sub); margin-bottom: 0.25rem; }
+.calorie-value { display: block; font-size: 1.25rem; font-weight: 700; }
+.calorie-item--remaining .calorie-value { color: var(--green); }
+
+/* ── 영양소 링 그리드 ── */
+.nutrient-rings-grid {
+  background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow);
+  padding: 1.25rem; display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem;
+}
+.nutrient-ring { display: flex; flex-direction: column; align-items: center; gap: 0.4rem; }
+.nutrient-ring__svg { width: 60px; height: 60px; transform: rotate(-90deg); }
+.nutrient-ring__label { text-align: center; }
+.nutrient-ring__value { display: block; font-size: 0.9rem; font-weight: 700; }
+.nutrient-ring__unit { font-size: 0.65rem; color: var(--text-sub); }
+.nutrient-ring__name { display: block; font-size: 0.7rem; color: var(--text-sub); }
+
+/* ── 스트릭 ── */
+.streak-tracker {
+  background: linear-gradient(135deg, #FF9800, #F44336);
+  border-radius: var(--radius); padding: 1rem 1.25rem;
+  display: flex; align-items: center; justify-content: space-between; color: #fff;
+}
+.streak-tracker__current { display: flex; align-items: center; gap: 0.5rem; }
+.streak-tracker__flame { font-size: 1.75rem; }
+.streak-tracker__days { font-size: 2rem; font-weight: 800; }
+.streak-tracker__label { font-size: 0.875rem; opacity: 0.9; }
+.streak-tracker__best { font-size: 0.8rem; opacity: 0.8; }
+
+/* ── AI 코치 패널 ── */
+.ai-coach-panel {
+  background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow); padding: 1.25rem;
+}
+.ai-coach-panel h2 { font-size: 1rem; font-weight: 700; margin-bottom: 0.75rem; }
+.insight-list { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+.insight-item {
+  display: flex; gap: 0.75rem; align-items: flex-start;
+  padding: 0.75rem; border-radius: var(--radius-sm); background: var(--bg);
+}
+.insight-item--encouragement { border-left: 3px solid var(--green); }
+.insight-item--tip { border-left: 3px solid var(--blue); }
+.insight-item--warning { border-left: 3px solid var(--orange); }
+.insight-item--achievement { border-left: 3px solid var(--purple); }
+.insight-item strong { display: block; font-size: 0.875rem; margin-bottom: 0.2rem; }
+.insight-item p { font-size: 0.8rem; color: var(--text-sub); }
+
+/* ── 복구 배너 ── */
+.recovery-banner {
+  border-radius: var(--radius); padding: 1rem 1.25rem; margin-bottom: 1rem;
+  display: flex; flex-direction: column; gap: 0.75rem;
+}
+.recovery-banner--low    { background: var(--green-light); border-left: 4px solid var(--green); }
+.recovery-banner--medium { background: #FFF3E0; border-left: 4px solid var(--orange); }
+.recovery-banner--high   { background: #FFEBEE; border-left: 4px solid var(--red); }
+.recovery-banner__message { font-size: 0.9rem; line-height: 1.6; white-space: pre-line; }
+.recovery-banner__actions { display: flex; gap: 0.5rem; }
+.recovery-banner__actions button {
+  padding: 0.5rem 1rem; border: none; border-radius: var(--radius-sm);
+  background: var(--green); color: #fff; cursor: pointer; font-size: 0.875rem; font-weight: 600;
+}
+.recovery-banner__dismiss { background: transparent !important; color: var(--text-sub) !important; }
+
+/* ── 식단 플래너 ── */
+.weekly-meal-planner { background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow); padding: 1.25rem; }
+.planner-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+.planner-title { font-size: 1rem; font-weight: 700; }
+.day-tabs { display: flex; gap: 0.4rem; overflow-x: auto; padding-bottom: 0.5rem; margin-bottom: 1rem; scrollbar-width: none; }
+.day-tabs::-webkit-scrollbar { display: none; }
+.day-tab {
+  flex-shrink: 0; display: flex; flex-direction: column; align-items: center;
+  padding: 0.5rem 0.7rem; border: 1.5px solid var(--border); border-radius: var(--radius-sm);
+  background: var(--surface); cursor: pointer; font-size: 0.75rem; position: relative;
+}
+.day-tab--active { border-color: var(--green); background: var(--green-light); color: var(--green); font-weight: 700; }
+.day-tab--today::after {
+  content: ''; position: absolute; top: -4px; right: -4px;
+  width: 8px; height: 8px; background: var(--orange); border-radius: 50%;
+}
+.today-badge {
+  font-size: 0.6rem; background: var(--orange); color: #fff;
+  padding: 0.1rem 0.3rem; border-radius: 99px; margin-top: 0.2rem;
+}
+.day-progress { color: var(--green); font-size: 0.5rem; letter-spacing: -1px; }
+
+.meal-slots-list { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 1rem; }
+.meal-card {
+  border: 1.5px solid var(--border); border-radius: var(--radius-sm); padding: 0.875rem;
+  transition: border-color 0.15s;
+}
+.meal-card--completed { border-color: var(--green); background: var(--green-light); }
+.meal-card__header { display: flex; gap: 0.5rem; align-items: center; margin-bottom: 0.5rem; }
+.meal-card__type { font-size: 0.75rem; font-weight: 700; color: var(--text-sub); text-transform: uppercase; }
+.meal-card__swapped-badge {
+  font-size: 0.65rem; background: var(--blue); color: #fff;
+  padding: 0.1rem 0.4rem; border-radius: 99px;
+}
+.meal-card__image { width: 100%; height: 100px; object-fit: cover; border-radius: var(--radius-sm); margin-bottom: 0.5rem; }
+.meal-card__title { font-size: 0.9rem; font-weight: 600; margin-bottom: 0.25rem; }
+.meal-card__meta { font-size: 0.8rem; color: var(--text-sub); margin-bottom: 0.6rem; }
+.meal-card__actions { display: flex; gap: 0.5rem; }
+.meal-card__complete-btn, .meal-card__swap-btn {
+  flex: 1; padding: 0.5rem; border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm); background: var(--surface);
+  cursor: pointer; font-size: 0.8rem; font-weight: 600; transition: all 0.15s;
+}
+.meal-card__complete-btn.active { background: var(--green); color: #fff; border-color: var(--green); }
+.meal-card__swap-btn:hover { background: var(--bg); }
+
+.daily-totals { background: var(--bg); border-radius: var(--radius-sm); padding: 0.875rem; }
+.daily-totals h3 { font-size: 0.875rem; font-weight: 700; margin-bottom: 0.6rem; }
+.totals-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem; text-align: center; }
+.total-label { display: block; font-size: 0.7rem; color: var(--text-sub); }
+.total-value { display: block; font-size: 0.9rem; font-weight: 700; }
+
+/* ── 모달 ── */
+.modal-overlay {
+  position: fixed; inset: 0; z-index: 200;
+  background: rgba(0,0,0,0.5);
+  display: flex; align-items: flex-end; justify-content: center;
+  animation: fadeIn 0.2s ease;
+}
+@keyframes fadeIn { from { opacity: 0 } to { opacity: 1 } }
+
+.meal-swap-modal {
+  background: var(--surface); border-radius: var(--radius) var(--radius) 0 0;
+  padding: 1.5rem 1.25rem 2rem; width: 100%; max-width: 480px;
+  max-height: 85vh; overflow-y: auto;
+  animation: slideUp 0.25s ease;
+}
+@keyframes slideUp { from { transform: translateY(100%) } to { transform: translateY(0) } }
+
+.meal-swap-modal h2 { font-size: 1.1rem; font-weight: 700; margin-bottom: 1rem; }
+
+.modal-close {
+  position: absolute; top: 1rem; right: 1rem;
+  background: none; border: none; font-size: 1.25rem;
+  cursor: pointer; color: var(--text-sub); padding: 0.25rem;
+}
+
+.swap-candidate { text-align: center; }
+.swap-candidate img { width: 100%; height: 160px; object-fit: cover; border-radius: var(--radius-sm); margin-bottom: 0.75rem; }
+.swap-candidate h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.25rem; }
+.swap-candidate p { color: var(--text-sub); font-size: 0.875rem; margin-bottom: 1rem; }
+.swap-candidate button {
+  width: 100%; padding: 0.875rem; border: none; border-radius: var(--radius);
+  background: var(--green); color: #fff; font-size: 1rem; font-weight: 700; cursor: pointer;
+}
+
+/* ── FAB ── */
+.food-log-fab {
+  position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 100;
+  display: flex; flex-direction: column-reverse; align-items: flex-end; gap: 0.5rem;
+}
+.fab-main {
+  width: 56px; height: 56px; border-radius: 50%; border: none;
+  background: var(--green); color: #fff; font-size: 1.75rem; font-weight: 300;
+  box-shadow: var(--shadow-md); cursor: pointer; transition: all 0.2s;
+  display: flex; align-items: center; justify-content: center;
+}
+.fab-main:hover { filter: brightness(1.1); transform: scale(1.06); }
+.fab-options { display: flex; flex-direction: column; gap: 0.5rem; align-items: flex-end; }
+.fab-options button {
+  padding: 0.5rem 1rem; border-radius: 99px; border: none;
+  background: var(--surface); box-shadow: var(--shadow); cursor: pointer;
+  font-size: 0.875rem; font-weight: 600; white-space: nowrap;
+}
+.fab-options button:hover { background: var(--green-light); }
+
+/* ── 바텀 네비게이션 ── */
+.bottom-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 50;
+  background: var(--surface); border-top: 1px solid var(--border);
+  display: flex; max-width: 480px; margin: 0 auto;
+}
+.bottom-nav a, .bottom-nav button {
+  flex: 1; display: flex; flex-direction: column; align-items: center;
+  padding: 0.6rem 0.25rem; border: none; background: none; cursor: pointer;
+  font-size: 0.65rem; color: var(--text-sub); text-decoration: none; gap: 0.2rem;
+}
+.bottom-nav .nav-icon { font-size: 1.3rem; }
+.bottom-nav a.active, .bottom-nav button.active { color: var(--green); }
