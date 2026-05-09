@@ -38,8 +38,7 @@
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.3.3"
   },
-  "overrides": {
-    "are-we-there-yet": "^4.0.2",
-    "npmlog": "^7.0.1"
+  "engines": {
+    "node": ">=20"
   }
 }
