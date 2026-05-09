@@ -36,7 +36,7 @@ function BarChart({ logs, target, dayLabels }: BarChartProps) {
 
         return (
           <div key={log.date} style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.3rem' }}>
-            <span style={{ fontSize: '0.65rem', color: 'var(--text-sub)', height: 16,
+            <span style={{ fontSize: '0.65rem', height: 16,
                            fontWeight: log.calories > 0 ? 700 : 400,
                            color: log.calories > 0 ? 'var(--text)' : 'var(--text-sub)' }}>
               {log.calories > 0 ? log.calories : ''}
